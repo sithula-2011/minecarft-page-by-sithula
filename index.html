@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel ="icon" type ="image/x-icon" href="i1.avif"
+    <link rel ="icon" type ="image/x-icon" href="i1.avif"
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft: A Universe in Blocks</title>
+    <link rel="icon" href="https://www.minecraft.net/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts for the pixelated style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+       
+    <style>
+        /* --- CSS STYLES START --- */
+        :root {
+            --primary-color: #3E8E41; /* Grass Green */
+            --secondary-color: #554433; /* Dirt Brown */
+            --accent-color: #4ECDC4;   /* Diamond Blue */
+            --text-color: #FFFFFF;
+            --dark-bg: #222;
+            --stone-bg: #888888;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            font-size: 22px;
+            line-height: 1.6;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- Header & Nav --- */
+        #main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.4s ease;
+        }
+
+        #navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            transition: all 0.4s ease;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(34, 34, 34, 0.95);
+            padding: 0.5rem 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            text-shadow: 2px 2px #000;
+            text-decoration: none;
+        }
+
+        #navbar ul {
+            list-style: none;
+            display: flex;
+        }
+
+        #navbar ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s, text-shadow 0.3s;
+            font-size: 1.5rem;
+        }
+
+        #navbar ul li a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+
+        /* --- Hero Section --- */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-color);
+            overflow: hidden;
+        }
+
+        .parallax {
+            background-image: url('https://images.unsplash.com/photo-1605335163659-158a1d7c3f87?q=80&w=2070&auto=format&fit=crop');
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            right: -50px;
+            bottom: -50px;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.6) blur(2px);
+            z-index: -1;
+        }
+
+        .hero-content {
+            background-color: rgba(0,0,0,0.5);
+            padding: 2rem 4rem;
+            border-radius: 10px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .hero-content h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 4px 4px #000;
+        }
+
+        .typewriter {
+            border-right: .15em solid var(--accent-color);
+            animation: typing 3.5s steps(30, end) forwards, blink-caret .75s step-end infinite;
+        }
+
+        .hero-content p {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        /* --- Buttons --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            border: 3px solid var(--text-color);
+            box-shadow: 4px 4px 0 #222;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #222;
+        }
+
+        /* --- Content Sections --- */
+        .content-section {
+            padding: 6rem 2rem;
+            border-bottom: 4px solid var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .content-section h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-shadow: 3px 3px #000;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: #ccc;
+            margin-bottom: 3rem;
+        }
+
+        /* About Section */
+        #about { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://www.minecraft.net/content/dam/games/minecraft/community/1-19_Wild_Update_Art.png') no-repeat center center/cover;
+        }
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-align: left;
+        }
+        .about-content img {
+            max-width: 40%;
+            border-radius: 10px;
+            border: 4px solid var(--secondary-color);
+        }
+
+        /* Modes Section */
+        #modes { 
+            background-color: #3a3a3a; 
+        }
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mode-card {
+            background-color: var(--stone-bg);
+            border: 4px solid var(--secondary-color);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .card-icon {
+            height: 80px;
+            width: 80px;
+            margin: 0 auto 1.5rem auto;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            image-rendering: pixelated; /* Keeps icons sharp */
+        }
+
+        /* SVGs as data URLs to avoid external requests and keep it self-contained */
+        .survival-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%238B5A2B' d='M6 0h4v2h2v1h1v1h1v3h-1v1h-1v1h-2v1h-1v3h-1v-2H7v-1H6V8H5V7H3V6h1V5h1V2h1V0Z'/%3E%3Cpath fill='%23694622' d='M6 1H7V2H6V1ZM7 2H8V3H7V2ZM8 3H9V4H8V3ZM9 4H10V5H9V4ZM10 6V5H12V6h1v1h-1v1h-1v1h-1v1h-1v-1H8V8H7V7h1V6h2Z'/%3E%3Cpath fill='%23A16A30' d='M6 1h4v1H6V1ZM7 2h2v1H7V2ZM8 3h1v1H8V3ZM9 4h1v1H9V4Z'/%3E%3C/svg%3E"); } /* Wooden Pickaxe */
+        .creative-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%238B5A2B' d='M0 7h16v9H0z'/%3E%3Cpath fill='%23694622' d='M0 7h1v9H0zm15 0h1v9h-1z'/%3E%3Cpath fill='%23287321' d='M0 4h16v3H0z'/%3E%3Cpath fill='%231B4D17' d='M0 4h1v3H0zm15 0h1v3h-1z'/%3E%3Cpath fill='%235A9F2C' d='M1 4h14v1H1zm0 2h14v1H1z'/%3E%3C/svg%3E"); } /* Grass Block */
+        .hardcore-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 2.75C12 -2.25 15.5 1.5 15.5 5.5c0 3.75-3.5 6.5-7.5 10C4.5 12 1 9.25 1 5.5 1 1.5 4 -2.25 8 2.75z' fill='%23BF3030'/%3E%3Cpath d='M11.5 10c1-2.5.5-5-2-6.5-.5-.25-1 0-1.5.5C7.5 3.5 7.5 3 7 2.5 5 1 3.5 2.5 4 5c.5 2 2.5 4 4 6 .5.5 1.5 0 2-1 .5-.5.5-1.5 1.5-1.5z' fill='%23D94545'/%3E%3C/svg%3E"); } /* Hardcore Heart */
+        .adventure-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 9h10v2H3zm1-2h8v2H4zm1-2h6v2H5zm1-2h4v2H6zm0 8h4v1H6zm-3 2h10v2H3z' fill='%236c6c6c'/%3E%3Cpath d='M3 9h1v2H3zm9 0h1v2h-1zM4 7h1v2H4zm7 0h1v2h-1zM5 5h1v2H5zm5 0h1v2h-1zM6 3h1v2H6zm3 0h1v2h-1z' fill='%234c4c4c'/%3E%3C/svg%3E"); } /* Iron Boots */
+
+
+        .mode-card h3 {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* World Section (Gallery) */
+        .gallery {
+            display: flex;
+            height: 500px;
+            gap: 10px;
+            margin: 3rem 0;
+        }
+
+        .gallery-image {
+            flex: 1;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            cursor: pointer;
+            transition: flex 0.7s ease, filter 0.5s ease;
+            border: 3px solid transparent;
+        }
+
+        .gallery-image h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .gallery-image.active {
+            flex: 5;
+            border-color: var(--accent-color);
+        }
+        .gallery-image.active h3 {
+            opacity: 1;
+        }
+        .gallery-image:not(.active):hover {
+            filter: brightness(1.2);
+        }
+
+        .gallery-caption { margin-top: 1.5rem; }
+
+
+        /* Updates Section (Timeline) */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) { left: 0; }
+        .timeline-item:nth-child(even) { left: 50%; }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item:nth-child(even)::after { left: -14px; }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--stone-bg);
+            position: relative;
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        .timeline-content h3 {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1619445258810-025a77f7c18c?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+        .cta-section p { font-size: 1.5rem; margin-bottom: 2rem; }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--secondary-color);
+        }
+
+
+        /* --- Animations --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* Keyframes for typewriter */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color); }
+        }
+
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 768px) {
+            #navbar ul {
+                display: none; /* Simplification for mobile */
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .hero-content p {
+                font-size: 1.5rem;
+            }
+             .about-content {
+                flex-direction: column;
+            }
+            .about-content img {
+                max-width: 100%;
+            }
+            .gallery {
+                flex-direction: column;
+                height: auto;
+            }
+            .gallery-image {
+                flex: 1;
+                height: 200px;
+            }
+            .gallery-image.active {
+                flex: 1; /* Reset flex grow on mobile */
+            }
+            .gallery-image h3 { 
+                opacity: 1; 
+                font-size: 1.5rem;
+            } /* Show titles on mobile */
+
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item:nth-child(even) { left: 0px; }
+            .timeline-item::after {
+                left: 15px;
+            }
+        }
+
+        /* --- CSS STYLES END --- */
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <nav id="navbar">
+            <a href="#hero" class="nav-logo">Minecraft</a>
+            <ul>
+                <li><a href="#about">The Genesis</a></li>
+                <li><a href="#modes">Game Modes</a></li>
+                <li><a href="#world">The World</a></li>
+                <li><a href="#updates">Updates</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Welcome to <span class="typewriter"></span></h1>
+                <p>A world where creativity is your only limit. Build, explore, survive.</p>
+                <a href="https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc" class="cta-button" target="_blank" rel="noopener noreferrer">Get Minecraft!</a>
+            </div>
+            <div class="parallax"></div>
+        </section>
+
+        <section id="about" class="content-section animate-on-scroll">
+            <div class="container">
+                <h2>The Genesis of a Blocky Universe</h2>
+                <div class="about-content">
+                    <img src="i1.avif" alt="A Minecraft character looking at a house.">
+                    <p>Minecraft began as a simple idea in the mind of Markus "Notch" Persson. Inspired by sandbox and survival games, he created "Cave Game" in 2009. This small project quickly blossomed into a global phenomenon. It’s a digital canvas where players can create magnificent castles, sprawling cities, or humble dirt huts. Every block placed tells a story. Acquired by Microsoft in 2014, Minecraft has continued its journey, receiving constant updates that expand its infinite horizons and inspire a new generation of creators.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="modes" class="content-section animate-on-scroll">
+            <div class="container">
+                <h2>Choose Your Adventure: Game Modes</h2>
+                <p class="section-subtitle">How will you play? The choice is yours.</p>
+                <div class="modes-grid">
+                    <div class="mode-card">
+                        <div class="card-icon survival-icon"></div>
+                        <h3>Survival</h3>
+                        <p>Gather resources, craft tools, build shelter, and manage your hunger. At night, monsters come out. Can you survive the dark?</p>
+                    </div>
+                    <div class="mode-card">
+                        <div class="card-icon creative-icon"></div>
+                        <h3>Creative</h3>
+                        <p>Your imagination is the only limit. With unlimited resources and the ability to fly, you can build anything you dream of.</p>
+                    </div>
+                    <div class="mode-card">
+                        <div class="card-icon hardcore-icon"></div>
+                        <h3>Hardcore</h3>
+                        <p>For the ultimate challenge. The difficulty is locked on hard, and death is permanent. This is not for the faint of heart.</p>
+                    </div>
+                     <div class="mode-card">
+                        <div class="card-icon adventure-icon"></div>
+                        <h3>Adventure</h3>
+                        <p>Play on custom maps created by others. Interact with the world but without the ability to freely place or destroy blocks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="world" class="content-section animate-on-scroll">
+             <div class="container">
+                <h2>An Ever-Expanding World: Biomes & Mobs</h2>
+                <p class="section-subtitle">Explore a vibrant world, from lush forests to fiery dimensions.</p>
+                 <div class="gallery">
+                     <div class="gallery-image active" style="background-image: url('https://images.unsplash.com/photo-1618335441584-5a21396a56e5?q=80&w=2070&auto=format&fit=crop');">
+                         <h3>Lush Plains</h3>
+                     </div>
+                     <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1605372343834-3101c7d2c388?q=80&w=2071&auto=format&fit=crop');">
+                         <h3>Frozen Peaks</h3>
+                     </div>
+                     <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1620050865532-c10079013898?q=80&w=2070&auto=format&fit=crop');">
+                         <h3>Crimson Nether</h3>
+                     </div>
+                     <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1608422345474-91ce34d193d5?q=80&w=2070&auto=format&fit=crop');">
+                         <h3>Vibrant Oceans</h3>
+                     </div>
+                 </div>
+                 <p class="gallery-caption">Meet countless creatures, or "mobs," along your journey. Some are passive friends like cows and the colorful axolotls, while others, like the iconic Creeper and mysterious Enderman, pose a constant threat. Every corner of the world is alive with opportunity and danger.</p>
+             </div>
+        </section>
+
+        <section id="updates" class="content-section animate-on-scroll">
+            <div class="container">
+                <h2>A Constantly Evolving Canvas</h2>
+                <p class="section-subtitle">The world of Minecraft never stops growing.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>The Update Aquatic (1.13)</h3>
+                            <p>Dived deep into the oceans, adding vibrant coral reefs, mysterious shipwrecks, dolphins, and new dangers lurking in the depths.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>The Nether Update (1.16)</h3>
+                            <p>Completely revamped the fiery Nether dimension, introducing new biomes like the Crimson Forest, new mobs like Piglins, and the powerful Netherite.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Caves & Cliffs (1.18)</h3>
+                            <p>Redefined the very foundation of the world with sprawling cave systems, lush caverns, and towering mountains, making exploration more breathtaking than ever.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="community" class="content-section cta-section animate-on-scroll">
+            <div class="container">
+                <h2>Your World, Your Story.</h2>
+                <p>Join a global community of millions of builders, explorers, and creators. The adventure is just beginning. What will you create?</p>
+                <a href="https://www.minecraft.net" class="cta-button" target="_blank" rel="noopener noreferrer">Start Your Adventure</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; created by sithula</p>
+    </footer>
+
+    <script>
+    // --- JAVASCRIPT LOGIC START ---
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // --- Sticky Navbar with color change ---
+        const navbar = document.getElementById('navbar');
+        window.onscroll = () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        };
+
+        // --- Typewriter Effect ---
+        const words = ["Minecraft", "Adventure", "Creativity"];
+        let i = 0;
+        let timer;
+        const typewriterElement = document.querySelector(".typewriterr");
+
+        if (typewriterElement) {
+            function typingEffect() {
+                let currentWord = words[i];
+                let charIndex = 0;
+                typewriterElement.innerHTML = '';
+                typewriterElement.style.width = 'fit-content';
+
+                const type = () => {
+                    if (charIndex < currentWord.length) {
+                        typewriterElement.innerHTML += currentWord.charAt(charIndex);
+                        charIndex++;
+                        timer = setTimeout(type, 150);
+                    } else {
+                        timer = setTimeout(deletingEffect, 2000);
+                    }
+                };
+                type();
+            }
+
+            function deletingEffect() {
+                let currentWord = words[i];
+                let charIndex = currentWord.length -1;
+
+                const del = () => {
+                    if (charIndex >= 0) {
+                        typewriterElement.innerHTML = currentWord.substring(0, charIndex);
+                        charIndex--;
+                        timer = setTimeout(del, 80);
+                    } else {
+                        i = (i + 1) % words.length;
+                        typingEffect();
+                    }
+                };
+                del();
+            }
+            typingEffect();
+        }
+
+        // --- Scroll Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1 
+        });
+
+        const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+        elementsToAnimate.forEach(el => {
+            observer.observe(el);
+        });
+        
+        // --- Interactive Image Gallery ---
+        const galleryImages = document.querySelectorAll('.gallery-image');
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                galleryImages.forEach(img => img.classList.remove('active'));
+                image.classList.add('active');
+            });
+        });
+
+        // --- Parallax Effect ---
+        const parallax = document.querySelector('.parallax');
+        window.addEventListener('scroll', () => {
+            if(parallax){
+                let offset = window.pageYOffset;
+                parallax.style.backgroundPositionY = offset * 0.5 + 'px';
+            }
+        });
+    });
+    // --- JAVASCRIPT LOGIC END ---
+    </script>
+</body>
+</html>
